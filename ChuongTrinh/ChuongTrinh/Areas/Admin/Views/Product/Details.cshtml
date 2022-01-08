@@ -1,0 +1,83 @@
+﻿@model ChuongTrinh.Models.SanPham
+@using System.Collections.Generic;
+@using System.Globalization;
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2> Chi tiết</h2>
+
+<div>
+    <h4>Sản phẩm</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.DanhMuc.TenDanhMuc, htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+        <div class="col-md">
+            @Html.EditorFor(model => model.DanhMuc.TenDanhMuc, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenSP, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md">
+                @Html.EditorFor(model => model.TenSP, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.TrangThai, htmlAttributes: new { @class = "bmd-label-floating", @style = "float:left;" })
+                @if (Model.TrangThai == true)
+                {
+                    <input type="text" value="Còn hàng" name="TinhTrang" disabled class="form-control" />
+                }
+                @if (Model.TrangThai == false)
+                {
+                    <input type="text" value="Hết hàng" name="TinhTrang" disabled class="form-control" />
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KhoiLuong, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md">
+                @Html.EditorFor(model => model.KhoiLuong, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GiaBan, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md">
+                @{
+                    var price = Model.GiaBan.ToString("C0", CultureInfo.CurrentCulture).Substring(1);
+                }
+                <input value="@price" disabled class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md">
+                @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
+        </div>
+        <dt>
+            @*  @{
+                string ImagePath = "~/wwwroot/Client/images/products/" + Model.HinhAnh;
+            }
+            <img src="@Url.Content(ImagePath)" width="300" class="img-thumbnail" />
+            <br />*@
+            <img src="~/wwwroot/Client/images/products/@Model.HinhAnh" width="200" height="200" />
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HinhAnh)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a class="btn btn-outline-success mt-2" href="@Url.Action("Edit","Product",new { id=Model.MaSP})">Chỉnh sửa</a>
+    <a class="btn btn-outline-warning mt-2" href="@Url.Action("Index","Product")">Trở về</a>
+</p>
